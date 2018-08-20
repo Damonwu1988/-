@@ -55,4 +55,3 @@ c、	页面加载时间段是页面加载完成时间-白屏时间，即是10.29
     -- 使用async 与 defer 进行文件异步加载
 （8）CSS位于顶部，JS位于底部，减少白屏时间
 性能优化示例：http://stevesouders.com/hpws/rule-min-http.php
- 
