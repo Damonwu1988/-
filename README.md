@@ -39,19 +39,20 @@ b、	在ScriptStreamerThread 选项中，可以通过配置script 的async/defer
 c、	页面加载时间段是页面加载完成时间-白屏时间，即是10.29s – 1s=9.29s。页面加载完成时间是和业务关系最为密切的时间点，大量JS业务逻辑都在这个时间点触发。在这个时间段期间，页面由杂乱无章到页面完整渲染，而且用户是无法操作的。
 
 ## 解决方案
---- （1）提高基础网络质量，使用expires、cache-control/max-age积极缓存；使用last-modified/Etag 更新缓存。
-     -- http请求头设置与服务器配置
---- （2）压缩html/js/css资源，使用gzip压缩传输。
-     -- 使用构建工具
---- （3）优化资源加载顺序，启用多域名并行下载。一般都会把一个域名下载资源分散到3个左右域名下，同时下载。
-    -- 启用cdn 资源库域名 https://res.mama100.com/resource/
---- （4）公共的js文件放在head里面，业务的js建议通过动态加载
-    -- 根据业务动态创建script标签引入js
---- （5）切分首屏可视与不可视模块 
-    -- 根据屏幕滚动进行懒加载与预加载处理
---- （6）提升服务器响应速度，减少ttfb延迟等待
-    -- 使用阿里云服务
---- （7）启用浏览器script streaming 解析线程
-    -- 使用async 与 defer 进行文件异步加载
---- （8）CSS位于顶部，JS位于底部，减少白屏时间
+ （1）提高基础网络质量； http请求头设置与服务器配置，使用expires、cache-control/max-age积极缓存；使用last-modified/Etag 更新缓存。
+ ---
+ （2）使用构建工具，压缩html/js/css资源，使用gzip压缩传输。
+ ---
+ （3）优化资源加载顺序，启用多域名并行下载。一般都会把一个域名下载资源分散到3个左右域名下，同时下载。启用cdn 资源库域名 https://res.mama100.com/resource/
+ ---
+ （4）公共的js文件放在head里面，业务的js建议通过动态加载，根据业务动态创建script标签引入js
+ --- 
+ （5）切分首屏可视与不可视模块，根据屏幕滚动进行懒加载与预加载处理
+ ---
+ （6）使用阿里云服务，提升服务器响应速度，减少ttfb延迟等待
+ ---
+ （7）使用async 与 defer 进行文件异步加载，启用浏览器script streaming 解析线程
+ ---
+ （8）CSS位于顶部，JS位于底部，减少白屏时间
+ ---
 性能优化示例：http://stevesouders.com/hpws/rule-min-http.php
