@@ -1,4 +1,4 @@
-# 积分商城加载分析与性能优化
+# 加载分析与性能优化
 ## 前言
 积分商城模块相对比较独立，而且与运营活动、会员日密切相关。在推活动的期间，流量非常庞大，甚至活动推出的前后几分钟访问量以数十万计。所以这次选择积分商城模块进行优化升级
 
@@ -32,7 +32,9 @@ Weixin.js/js_sdk.js	微信sdk 相关文件
 根据这个加载瀑布流，可以发现资源下载非常多，浏览器的单线程加载，导致许多资源被挂起等待，而且与服务器交互的ttfb时间比较久。
 ### （2）performance 模块是记录了页面加载的全过程，包括一些函数的调用，耗时等。为了达到移动端的要求，我将cpu调低了2倍速度，然后网速选择slow3G。下面来详细说说加载过程。
  ![](https://github.com/Damonwu88/fe-performance-analysis/blob/master/3.png)
+
 a、	资源加载顺序与network一样，由图可以看出白屏时间大约接近1000ms。也就是说需要花1秒时间页面才可以看到有内容展示。
+
 b、	在ScriptStreamerThread 选项中，可以通过配置script 的async/defer 选择使用script streaming模式，可以使得解析时间减少10-20%。原理是允许html解析器能够先检测到资源，将解析工作分配给script streaming线程，从而不阻塞文档解析。
  ![](https://github.com/Damonwu88/fe-performance-analysis/blob/master/4.png)
  
